@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+  </head>
+  <body>
+
+    <section>
+      <h2>Single Item</h2>
+
+      <scroll-snap-slider data-options='{"swipeType": "single"}'>
+        <div is="slider-items" class="single-item-slider"></div>
+
+        <div is="slider-arrows">
+          <button is="slider-prev">Prev</button>
+          <button is="slider-next">Next</button>
+        </div>
+      </scroll-snap-slider>
+
+    </section>
+
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
