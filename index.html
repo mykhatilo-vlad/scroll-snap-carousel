@@ -4,15 +4,29 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>Scroll Snap Carousel</title>
   </head>
   <body>
 
     <section>
-      <h2>Single Item</h2>
+      <h2>Single Item. Swipe Type: Single</h2>
 
       <scroll-snap-slider data-options='{"swipeType": "single"}'>
         <div is="slider-items" class="single-item-slider"></div>
+
+        <div is="slider-arrows">
+          <button is="slider-prev">Prev</button>
+          <button is="slider-next">Next</button>
+        </div>
+      </scroll-snap-slider>
+
+    </section>
+
+    <section>
+      <h2>Multiple Items. Swipe Type: Single</h2>
+
+      <scroll-snap-slider data-options='{"swipeType": "single"}'>
+        <div is="slider-items" class="multiple-items-slider"></div>
 
         <div is="slider-arrows">
           <button is="slider-prev">Prev</button>

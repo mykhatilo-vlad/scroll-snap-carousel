@@ -19,7 +19,7 @@ class ScrollSnapSlider extends HTMLElement {
     this.arrowsWrapper = this.querySelector('[is="slider-arrows"]');
     this.arrowPrev = this.querySelector('[is="slider-prev"]');
     this.arrowNext = this.querySelector('[is="slider-next"]');
-    
+
     this.renderItems();
 
     this.arrowPrev?.addEventListener('click', this.slidePrev);
@@ -27,7 +27,7 @@ class ScrollSnapSlider extends HTMLElement {
   }
 
   disconnectedCallback() {
-   
+
   }
 
   renderItems = () => {
@@ -43,20 +43,60 @@ class ScrollSnapSlider extends HTMLElement {
   }
 
   slidePrev = () => {
+    if (this.itemsWrapper) {
+      const isScrolledToEnd = this.itemsWrapper.scrollWidth === this.itemsWrapper.scrollLeft + this.itemsWrapper.clientWidth;
+      if (isScrolledToEnd) {
+        this.findClosestToStart();
+      }
+    }
+
     this.currentIndex = this.currentIndex > 0 ? --this.currentIndex : (this.itemsLength - 1);
     this.slideTo(this.currentIndex);
   }
 
   slideNext = () => {
+    if (this.itemsWrapper) {
+      const isScrolledToEnd = this.itemsWrapper.scrollWidth === this.itemsWrapper.scrollLeft + this.itemsWrapper.clientWidth;
+      if (isScrolledToEnd) {
+        this.currentIndex = this.itemsLength - 1;
+      }
+    }
+
     this.currentIndex = this.currentIndex < (this.itemsLength - 1) ? ++this.currentIndex : 0;
     this.slideTo(this.currentIndex);
   }
-  
+
   slideTo = (index: number) => {
+
     if (this.items) {
       const item = this.items[index];
-      item?.scrollIntoView({ behavior: 'smooth' });
+      item?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'start'
+      });
     }
+  }
+
+  findClosestToStart = () => {
+    if (!this.itemsWrapper || !this.items) return;
+
+    const scrollledLeft = this.itemsWrapper.scrollLeft;
+    let closestIndex = this.itemsLength - 1;
+
+    for (let i = this.itemsLength - 1; i >= 0; i--) {
+      const item = this.items.item(i) as HTMLElement;
+      const itemLeft = item.offsetLeft;
+
+      if (itemLeft >= scrollledLeft) {
+        closestIndex = i;
+      } else {
+        break;
+      }
+      
+    }
+
+    this.currentIndex = closestIndex;
   }
 }
 

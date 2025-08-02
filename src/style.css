@@ -79,6 +79,7 @@ scroll-snap-slider {
   }
 
   [is="slider-items"] {
+    position: relative;
     display: flex;
     flex-direction: row;
     gap: 1rem;
@@ -91,7 +92,7 @@ scroll-snap-slider {
     } 
 
     &>* {
-      scroll-snap-align: center;
+      scroll-snap-align: left;
     }
   }
 
@@ -105,6 +106,13 @@ scroll-snap-slider {
       width: 100%;
       flex-grow: 1;
       flex-shrink: 0;
+    }
+  }
+
+  .multiple-items-slider {
+    &>* {
+      flex: 0 0 auto;
+      width: 300px; /* Adjust as needed */
     }
   }
 }
