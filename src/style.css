@@ -74,7 +74,7 @@ section {
 }
 
 scroll-snap-slider {
-  & > *:not(:last-child) {
+  &>*:not(:last-child) {
     margin-bottom: 2rem;
   }
 
@@ -85,11 +85,15 @@ scroll-snap-slider {
     gap: 1rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* Internet Explorer and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+
+    /* Internet Explorer and Edge */
     &::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, and Opera */
-    } 
+      display: none;
+      /* Chrome, Safari, and Opera */
+    }
 
     &>* {
       scroll-snap-align: left;
@@ -112,7 +116,29 @@ scroll-snap-slider {
   .multiple-items-slider {
     &>* {
       flex: 0 0 auto;
-      width: 300px; /* Adjust as needed */
+      width: 300px;
+    }
+  }
+
+  .multiple-items-slider-variable {
+    &>* {
+      flex: 0 0 auto;
+    }
+
+    &>*:nth-child(odd) {
+      width: 300px;
+    }
+
+    &>*:nth-child(even) {
+      width: 100px;
+    }
+
+    &>*:first-child {
+      width: 200px;
+    }
+
+    &>*:last-child {
+      width: 500px;
     }
   }
 }

@@ -43,11 +43,8 @@ class ScrollSnapSlider extends HTMLElement {
   }
 
   slidePrev = () => {
-    if (this.itemsWrapper) {
-      const isScrolledToEnd = this.itemsWrapper.scrollWidth === this.itemsWrapper.scrollLeft + this.itemsWrapper.clientWidth;
-      if (isScrolledToEnd) {
-        this.findClosestToStart();
-      }
+    if (this.isScrolledToEnd()) {
+      this.findClosestToStart();
     }
 
     this.currentIndex = this.currentIndex > 0 ? --this.currentIndex : (this.itemsLength - 1);
@@ -55,11 +52,8 @@ class ScrollSnapSlider extends HTMLElement {
   }
 
   slideNext = () => {
-    if (this.itemsWrapper) {
-      const isScrolledToEnd = this.itemsWrapper.scrollWidth === this.itemsWrapper.scrollLeft + this.itemsWrapper.clientWidth;
-      if (isScrolledToEnd) {
-        this.currentIndex = this.itemsLength - 1;
-      }
+    if (this.isScrolledToEnd()) {
+      this.currentIndex = this.itemsLength - 1;
     }
 
     this.currentIndex = this.currentIndex < (this.itemsLength - 1) ? ++this.currentIndex : 0;
@@ -93,10 +87,14 @@ class ScrollSnapSlider extends HTMLElement {
       } else {
         break;
       }
-      
     }
 
     this.currentIndex = closestIndex;
+  }
+
+  isScrolledToEnd = () => {
+    if (!this.itemsWrapper) return false;
+    return this.itemsWrapper.scrollWidth === this.itemsWrapper.scrollLeft + this.itemsWrapper.clientWidth;
   }
 }
 
