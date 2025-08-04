@@ -1,4 +1,5 @@
 import './style.css';
+import type { OptionsType } from './types';
 
 class ScrollSnapSlider extends HTMLElement {
   itemsWrapper: HTMLElement | null = null;
@@ -7,6 +8,7 @@ class ScrollSnapSlider extends HTMLElement {
   arrowsWrapper: HTMLElement | null = null;
   arrowPrev: HTMLElement | null = null;
   arrowNext: HTMLElement | null = null;
+  options: OptionsType = { swipeType: 'single' };
 
   currentIndex: number = 0;
 
@@ -19,11 +21,12 @@ class ScrollSnapSlider extends HTMLElement {
     this.arrowsWrapper = this.querySelector('[is="slider-arrows"]');
     this.arrowPrev = this.querySelector('[is="slider-prev"]');
     this.arrowNext = this.querySelector('[is="slider-next"]');
+    this.options = this.dataset.options ? JSON.parse(this.dataset.options) : this.options;
 
     this.renderItems();
 
-    this.arrowPrev?.addEventListener('click', this.slidePrev);
-    this.arrowNext?.addEventListener('click', this.slideNext);
+    this.arrowPrev?.addEventListener('click', this.options.swipeType === 'single' ? this.slidePrev : this.goPrev);
+    this.arrowNext?.addEventListener('click', this.options.swipeType === 'single' ? this.slideNext : this.goNext);
   }
 
   disconnectedCallback() {
@@ -95,6 +98,16 @@ class ScrollSnapSlider extends HTMLElement {
   isScrolledToEnd = () => {
     if (!this.itemsWrapper) return false;
     return this.itemsWrapper.scrollWidth === this.itemsWrapper.scrollLeft + this.itemsWrapper.clientWidth;
+  }
+
+  goNext = () => {
+    if(this.itemsWrapper) {
+      this.itemsWrapper?.scrollTo(this.isScrolledToEnd() ? 0 :this.itemsWrapper.offsetWidth + this.itemsWrapper.scrollLeft, 0);
+    }
+  }
+
+  goPrev = () => {
+    this.itemsWrapper?.scrollTo(this.itemsWrapper.scrollLeft === 0 ? this.itemsWrapper.scrollWidth : this.itemsWrapper.scrollLeft - this.itemsWrapper.offsetWidth, 0);
   }
 }
 

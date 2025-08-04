@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -84,10 +88,12 @@ scroll-snap-slider {
     flex-direction: row;
     gap: 1rem;
     overflow-x: auto;
+    scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
     /* Firefox */
     -ms-overflow-style: none;
+
 
     /* Internet Explorer and Edge */
     &::-webkit-scrollbar {
@@ -96,7 +102,7 @@ scroll-snap-slider {
     }
 
     &>* {
-      scroll-snap-align: left;
+      scroll-snap-align: start;
     }
   }
 
